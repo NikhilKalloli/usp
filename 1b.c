@@ -3,12 +3,11 @@
 
 #include <stdio.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <sys/wait.h> 
 
 int main() {
-    int file = open("test.txt", O_RDONLY);     	              
-    char buf[20];                            			
+    int file = open("test.txt", O_RDONLY);     	        // Open file in read-only mode
+    char buf[20];                            			// Buffer for reading
 
     if (fork() == 0) 
    {                       					            // Child process
@@ -17,12 +16,13 @@ int main() {
         printf("Child read: %s\n", buf);
     } 
      else 
-   {                                 				// Parent process
+   {                                 				    // Parent process
         wait(NULL);                          			// Wait for child to finish
         read(file, buf, 5);                    			// Read next 5 bytes (shared offset)
         buf[5] = '\0';
         printf("Parent read: %s\n", buf);
     }
 
+    close(file);
     return 0;
 }

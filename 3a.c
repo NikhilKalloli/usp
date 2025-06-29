@@ -1,5 +1,5 @@
 //3.a) Write a C program to remove empty files from the given directory.
-
+#include <stdio.h> 
 #include <fcntl.h>
 #include <unistd.h>
 #include <dirent.h>

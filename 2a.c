@@ -1,18 +1,22 @@
 //2.a) Write a C program to display various details of a file using stat structure (At least 5 fields).
 
-#include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
 
 int main() {
-    struct stat fs;
-    lstat("sample.txt", &fs);
+    char filename[100];
+    struct stat fileStat;                                            //declare
 
-    printf("Mode:             %o\n", fs.st_mode & 07777);
-    printf("Size:             %lu bytes\n", fs.st_size);
-    printf("Number of Links:  %lu\n", fs.st_nlink);
-    printf("Inode:            %lu\n", fs.st_ino); 
-    printf("Block Size:       %lu\n", fs.st_blksize);
+    printf("Enter the file name: ");
+    scanf("%s", filename);
+
+    stat(filename, &fileStat);
+
+    printf("File Size      : %ld bytes\n", fileStat.st_size);        //fileStat.st_xyz
+    printf("Number of Links: %ld\n", fileStat.st_nlink);
+    printf("Inode Number   : %ld\n", fileStat.st_ino);               
+    printf("File Mode      : %o\n", fileStat.st_mode);               // %o not %ld
+    printf("Last Access    : %ld\n", fileStat.st_atime);
 
     return 0;
 }
