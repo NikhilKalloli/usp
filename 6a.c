@@ -12,7 +12,7 @@ int main() {
     buf[5] = '\0'; 
      		
     lseek(file, 0, SEEK_END); 
-    dup2(file, STDOUT_FILENO);
+    dup2(file, 1);
     printf("%s", buf);
     return 0;
 }
