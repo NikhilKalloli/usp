@@ -9,14 +9,12 @@ int main() {
     int file = open("test.txt", O_RDONLY);     	        // Open file in read-only mode
     char buf[20];                            			// Buffer for reading
 
-    if (fork() == 0) 
-   {                       					            // Child process
+    if (fork() == 0) {                       					            // Child process
         read(file, buf, 5);                    			// Read first 5 bytes
         buf[5] = '\0';
         printf("Child read: %s\n", buf);
     } 
-     else 
-   {                                 				    // Parent process
+    else {                                 				    // Parent process
         wait(NULL);                          			// Wait for child to finish
         read(file, buf, 5);                    			// Read next 5 bytes (shared offset)
         buf[5] = '\0';

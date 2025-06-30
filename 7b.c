@@ -6,13 +6,13 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[]) {
-    char buffer[10];
+    char buf[10];
 
-    int fd_src = open(argv[1], O_RDONLY);
-    int fd_dest = open(argv[2], O_WRONLY);
+    int src = open(argv[1], O_RDONLY);
+    int dest = open(argv[2], O_WRONLY);
    
-    read(fd_src, buffer, 10);
-    write(fd_dest, buffer, 10);
+    read(src, buf, 10);
+    write(dest, buf, 10);
     return 0;
 }
 

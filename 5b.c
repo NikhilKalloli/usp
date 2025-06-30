@@ -1,34 +1,21 @@
-// 5-b) Write a C program using sigaction system call which calls a signal
-// handler on SIGINT signal and then reset the default action of the
-// SIGINT signal.
-
 #include <stdio.h>
-#include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
 
-void s_h(int sn)
-{
-    printf("\ncaught sigint %d\n", sn);
-
-    struct sigaction sa;
+void handler(int s) {
+    printf("\ncaught sigint %d\n", s);
+    struct sigaction sa = {0};
     sa.sa_handler = SIG_DFL;
-    sa.sa_flags = 0;
-    sigemptyset(&sa.sa_mask);
     sigaction(SIGINT, &sa, NULL);
 }
 
-int main()
-{
-    struct sigaction sa;
-    sa.sa_handler = s_h;
-    sa.sa_flags = 0;
-    sigemptyset(&sa.sa_mask);
+int main() {
+    struct sigaction sa = {0};
+    sa.sa_handler = handler;
     sigaction(SIGINT, &sa, NULL);
-
-    while (1)
-    {
-        printf("press ctrl+c to trigger\n");
+    
+    while (1){ 
+        printf("\npress ctrl+c to continue...\n");
         pause();
     }
     return 0;

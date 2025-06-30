@@ -4,12 +4,10 @@
 //iii.	Seek 10 bytes ahead from the current file offset and display 20 characters
 //iv.	Display the file size             
 
-#include<fcntl.h>
-#include<unistd.h>
 #include<stdio.h>
-#include<dirent.h>
+#include<unistd.h>
+#include<fcntl.h>
 #include<sys/stat.h>
-#include<time.h>
 
 int main(){
 	

@@ -7,9 +7,8 @@
 #include <sys/wait.h>
 
 int main() {
-    int st;
-    pid_t pid1 = fork();
-    pid_t pid2 = fork();
+    int pid1 = fork();
+    int pid2 = fork();
 
     if (pid1 == 0) {
         printf("first pid: %d\n", getpid());
@@ -23,10 +22,10 @@ int main() {
         exit(0);
     }
 
-    wait(&st);
+    wait(NULL);
     printf("first wait\n");
 
-    waitpid(pid2, &st, 0);
+    waitpid(pid2, NULL, 0);
     printf("second wait\n");
 
     return 0;

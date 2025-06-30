@@ -1,20 +1,33 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<sys/stat.h>
+#include<sys/types.h>
+#include<syslog.h>
 #include<fcntl.h>
 #include<unistd.h>
-#include<dirent.h>
-#include <stdio.h> 
+
 
 int main(){
-    DIR *dp;
-    struct dirent *dir;
-    int fd, n;
+    int st;
+    pid_t pid1 = fork();
+    pid_t pid2 = fork();
 
-    dp = opendir(".");
-    while((dir = readdir(dp)) != NULL ){
-        fd =  open(dir->d_name, O_RDWR, 0777);
-        n  = lseek(fd, 0, SEEK_END);
-        if(!n){
-            unlink(dir->d_name);
-        }
+    if(pid1 == 0){
+        printf("First pid: %d", getpid());
+        sleep(2);
+        exit(0);
     }
+
+     if(pid2 == 0){
+        printf("Second pid: %d", getpid());
+        sleep(2);
+        exit(0);
+    }
+
+    wait(&st);
+    printf("first wait");
+
+    waitpid(pid2, &st, 0);
+    printf("Second wait");
     return 0;
 }
