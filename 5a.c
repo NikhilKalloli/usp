@@ -7,12 +7,12 @@
 int main()
 {
     struct stat st;
-    struct utimbuf tt;
+    struct utimbuf newtime;
 
     stat("src.txt", &st);
-    tt.actime = st.st_atime;
-    tt.modtime = st.st_mtime;
-    utime("dest.txt", &tt);
+    newtime.actime = st.st_atime;
+    newtime.modtime = st.st_mtime;
+    utime("dest.txt", &newtime);
 
     return 0;
 }

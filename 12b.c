@@ -18,7 +18,7 @@ int main() {
     if (fork() == 0)
         execle("./echoall", "echoall", "myarg1", "MY ARG2", NULL, env);
     wait(NULL);
-    execlp("./echoall", "echoall", "only 1 arg", NULL);
+    execl("./echoall", "echoall", "only 1 arg", NULL);
     return 0;
 }
 //-------------------------------------------------------------

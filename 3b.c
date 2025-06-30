@@ -10,8 +10,8 @@
 int main()
 {
 	struct dirent *dir;
-	struct stat st;
 	DIR *dp=opendir(".");
+	struct stat st;
 	while(dir = readdir(dp))
 	{
 		printf("\n%ld %ld %ld %o %ld %s\n",

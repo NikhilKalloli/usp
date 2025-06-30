@@ -5,12 +5,6 @@
 
 int main(int argc, char *argv[])
 {
-        if(argc<2)
-        {
-                printf("Usage: ./a.out file.txt\n");
-                return 0;
-        }
-
         struct stat st;
         lstat(argv[1], &st);             //use lstat not stat !!
 

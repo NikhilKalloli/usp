@@ -5,7 +5,8 @@
 //iv. Also print the necessary process IDs
 
 
-// PARENT.C
+
+// 
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
@@ -42,4 +43,3 @@ int main(int argc, char *argv[]) {
 // gcc -o child child.c
 // gcc -o parent parent.c
 // ./parent
-// ./child example.txt

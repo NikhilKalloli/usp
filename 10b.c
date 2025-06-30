@@ -1,5 +1,4 @@
-// b) Demonstrate the working of wait and waitpid system calls with a
-// program
+// b) Demonstrate the working of wait and waitpid system calls with a program
 
 #include <stdio.h>
 #include <stdlib.h>

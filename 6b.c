@@ -3,57 +3,39 @@
 //If the region is not locked, lock the region with an exclusive lock, read the last 50 bytes and unlock the region.
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-
-#define REGION_SIZE 100
-#define READ_SIZE 50
 
 int main(int argc, char *argv[]) {
+    int fd = open(argv[1], O_RDONLY);
+    struct flock lock;
+    char buffer[51];
 
-    int fd = open(argv[1], O_RDWR);
+    lock.l_type = F_WRLCK;
+    lock.l_whence = SEEK_END;
+    lock.l_start = -100;
+    lock.l_len = 100;
 
-    struct stat st;
-    fstat(fd, &st);
-    off_t filesize = st.st_size;
-    off_t region_start = filesize - REGION_SIZE;
+    fcntl(fd, F_GETLK, &lock);
 
-    struct flock fl;
-    fl.l_type = F_WRLCK;
-    fl.l_whence = SEEK_SET;
-    fl.l_start = region_start;
-    fl.l_len = REGION_SIZE;
-    fl.l_pid = 0;
+    if (lock.l_type != F_UNLCK) {
+        printf("Region locked by PID: %d\n", lock.l_pid);
+    } else {
+        lock.l_type = F_WRLCK;
+        fcntl(fd, F_SETLK, &lock);
 
-    fcntl(fd, F_GETLK, &fl);
-    if (fl.l_type != F_UNLCK) {
-        printf("Region is locked by process with PID: %d\n", fl.l_pid);
-        close(fd);
-        return 0;
+        lseek(fd, -50, SEEK_END);
+        read(fd, buffer, 50);
+        buffer[50] = '\0';
+        printf("Last 50 bytes: %s\n", buffer);
+
+        lock.l_type = F_UNLCK;
+        fcntl(fd, F_SETLK, &lock);
     }
 
-    fl.l_type = F_WRLCK;
-    fcntl(fd, F_SETLK, &fl);
-
-    off_t read_start = filesize - READ_SIZE;
-    if (lseek(fd, read_start, SEEK_SET) == -1) {
-        fl.l_type = F_UNLCK;
-        fcntl(fd, F_SETLK, &fl);
-        close(fd);
-        return 1;
-    }
-
-    char buffer[READ_SIZE + 1];
-    int bytes_read = read(fd, buffer, READ_SIZE);
-
-    buffer[bytes_read] = '\0';
-    printf("Last 50 bytes:\n%s\n", buffer);
-    
-
-    fl.l_type = F_UNLCK;
-    fcntl(fd, F_SETLK, &fl);
+    close(fd);
     return 0;
 }
+
+
+// ./a.out sample.txt

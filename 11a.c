@@ -9,7 +9,7 @@ int main() {
 
     int fd1 = open("example.txt", O_WRONLY);
     int fd2 = dup(fd1);
-    int fd3=dup2(fd1, 10);
+    int fd3 = dup2(fd1, 10);
 
     write(fd1, "Writing via fd1 \n", 16);
     write(fd2, "Writing via fd2 \n", 16);
