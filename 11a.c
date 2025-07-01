@@ -13,7 +13,7 @@ int main() {
 
     write(fd1, "Writing via fd1 \n", 16);
     write(fd2, "Writing via fd2 \n", 16);
-    write(fd3, "Writing via fd3 (dup2)\n", 50);
+    write(fd3, "Writing via fd3 \n", 16);
     return 0;
 }
 // run: gcc p1.c

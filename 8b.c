@@ -4,9 +4,7 @@
 //iii. The parent process should wait for the child process to exit
 //iv. Also print the necessary process IDs
 
-
-
-// 
+// parent.c
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>

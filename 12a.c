@@ -28,6 +28,3 @@ int main() {
 // gedit p1.c
 // gcc p1.c
 // ./a.out
-
-// use on new terminal to check <defunct> process which is zombie : ps -ef | grep defunct
-// after 10 seconds, run the command again to see that the zombie process is gone.

@@ -26,5 +26,3 @@ int main()
 // run: gcc p1.c
 // run: ./a.out
 // run: ls
-
-// The program will delete all empty files in the current directory.

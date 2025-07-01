@@ -4,7 +4,7 @@
 
 int my_system(const char *cmd) {
     if (fork() == 0)
-        execl("/bin/sh", "sh", "-c", cmd, NULL);
+        execl("/bin/sh", "sh", "-c", cmd, (char*) NULL);
     int status;
     wait(&status);
     return status;

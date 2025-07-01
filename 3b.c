@@ -2,7 +2,6 @@
 //Your program should Print 5 attributes of files.
 
 #include <dirent.h>
-#include<time.h>
 #include <unistd.h>
 #include<fcntl.h>
 #include<sys/stat.h>
